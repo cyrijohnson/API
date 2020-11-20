@@ -1,0 +1,24 @@
+addCompany --- POST
+http://127.0.0.1:5000/addService?userid=c.j@sap.com&tok=rK42sdGyv4cF
+{"cname":"CyrilIndia","ccity":"Coonoor", "cphone":"7904412267", "cmobile":"2207094", "cfname":"Cyril","clname":"Johnson","company":"true"}
+response --- {"companyId": INT , "status" : "creation successfull"}
+
+addService --- POST
+http://127.0.0.1:5000/addService?userid=c.j@sap.com&tok=rK42sdGyv4cF
+{"company":"true", "companyid":46618, "sname" : "angel", "sbuilding":"1247", "sstreet":"mount road", "slandmark":"opposite blagh", "sarea":"stanly park", "spincode":"643105", "sstate":"Tamil Nadu", "scountry":"India"}
+response --- {""}
+
+addServiceContact --- POST
+http://127.0.0.1:5000/addServiceContact?userid=c.j@sap.com&tok=rK42sdGyv4cF
+{"serviceid":44300, "conPerson":"Harry Potter","conPhone":"2207094", "conMobile":"7904412267", "conFax":"","conTollfree":"",
+"conEmail":"cyril@email.com", "conWebsite":"www.sss.com","conFacebook":"www.sfdf.com","conTwitter":"www.sdf.com","conInstagram":"sdfs.sdsd.com",
+"conYoutube":"www.yyy.com"}
+
+addServiceSchedule --- POST
+http://127.0.0.1:5000/addServiceSchedule?userid=c.j@sap.com&tok=rK42sdGyv4cF
+{"serviceid":44300, "monBeg":"","monEnd":"","tueBeg":"","tueEnd":"","wedBeg":"","wedBeg":"","wedEnd":"","thurBeg":"","thurEnd":"","friBeg":"",
+"friEnd":"","satBeg":"","satEnd":"","sunBeg":"","sunEnd":"","cash":"true","card":"false","digi":"true"}
+
+addServiceKeywords --- POST
+http://127.0.0.1:5000/addServiceKeywords?userid=c.j@sap.com&tok=rK42sdGyv4cF
+{"serviceid":44300, "keywords":"milk blah tea"}
