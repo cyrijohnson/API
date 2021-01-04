@@ -1,12 +1,18 @@
+import base64
+import io
+
 import pymysql
 import sys
 from random import randint
 import string
+
+from PIL import Image
+
 import security as auth
 import apiAuth as apiAuth
 from app import app
 from utils.DbConfig import mysql
-from flask import jsonify
+from flask import jsonify, send_file
 from flask import flash,request
 
 @app.route('/getMyCompaniesServices', methods = ['GET'])
@@ -22,6 +28,8 @@ def getCompanyServices():
             response = {"companyCount":len(companies), "companiesList" :companies}
             cur.execute("select * from services where serviceUserFK=%s",(userid))
             services = cur.fetchall()
+            for i in services:
+                i["image"] = "";
             response["serviceCount"] = len(services)
             response["serviceList"] = services
             response = jsonify(response)
@@ -58,6 +66,35 @@ def getMyMoreInfo():
             response = jsonify(response)
             response.status_code = 200
             return response
+        else:
+            response = jsonify("Not Authorized")
+            response.status_code = 401
+            return response
+    except Exception as e:
+        print(e)
+        response = jsonify("Database Error")
+        response.status_code = 500
+        return response
+    finally:
+        cur.close();
+        conn.close();
+
+@app.route('/getImage', methods = ['GET'])
+def getServiceImage():
+    userid = request.args.get('userid')
+    token = request.args.get('tok')
+    sid = request.args.get('sid')
+    try:
+        if apiAuth.apiAuth(token, userid) == True:
+            conn = mysql.connect()
+            cur = conn.cursor(pymysql.cursors.DictCursor)
+            cur.execute("select image from services where idservices=%s",(sid))
+            image = cur.fetchall()
+            img = Image.open(io.BytesIO(image[0]["image"]), mode='r')
+            img_byte_arr = io.BytesIO()
+            img.save(img_byte_arr, format='PNG')
+            my_encoded_img = base64.encodebytes(img_byte_arr.getvalue()).decode('ascii')
+            return jsonify(my_encoded_img)
         else:
             response = jsonify("Not Authorized")
             response.status_code = 401

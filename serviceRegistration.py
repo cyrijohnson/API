@@ -61,9 +61,9 @@ def addService():
             if _req['company'] == "true":
                 companyid = _req["companyid"]
                 if(serviceid!=0):
-                    cur.execute("insert into services(idservices, name, building, street, landmark, area, pincode, state, country, companyid, serviceUserFK,verified) values(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",
+                    cur.execute("insert into services(idservices, name, building, street, landmark, area, pincode, state, country, companyid, serviceUserFK,verified,city) values(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",
                                 (serviceid, _req['sname'], _req['sbuilding'], _req['sstreet'], _req['slandmark'], _req['sarea'], _req['spincode'], _req['sstate'], _req['scountry'],
-                                 companyid, userid,0))
+                                 companyid, userid,0,_req['scity']))
                     conn.commit()
                     data = {"serviceId":serviceid, "status":"Service added successfully"}
                     response = jsonify(data)
@@ -258,17 +258,16 @@ def approveService():
 
 @app.route('/saveServiceImage', methods = ['POST'])
 def imageFunction():
-    _req = request.files['myFile']
+    sid = request.args.get('sid')
+    conn = mysql.connect();
+    cur = conn.cursor(pymysql.cursors.DictCursor)
+    _req = request.files['myFile'].read()
     print(_req)
+    cur.execute("update services set image = %s where idservices = %s",(_req,sid));
+    conn.commit()
     response = jsonify("success")
     response.status_code = 200;
     return response
-
-def convertToBinaryData(filename):
-    # Convert digital data to binary format
-    with open(filename, 'rb') as file:
-        binaryData = file.read()
-    return binaryData
 
 def validateKeywordsId(conn, cur):
     try:
