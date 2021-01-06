@@ -3,6 +3,7 @@ import random as random
 import string
 import serviceRegistration
 import dataProvider
+import demo
 import apiAuth as apiAuth
 import security as auth
 from app import app
