@@ -3,6 +3,7 @@ import random as random
 import string
 import serviceRegistration
 import dataProvider
+import review
 import apiAuth as apiAuth
 import security as auth
 from app import app
@@ -338,6 +339,42 @@ def findService():
     except Exception as e:
         print(e)
 
+@app.route("/forgotPass", methods = ['POST'])
+def forgotPassword():
+    userid = request.args.get('userid')
+    try:
+        conn = mysql.connect();
+        cur = conn.cursor(pymysql.cursors.DictCursor)
+        _req = request.json
+        _encrpass = auth.encrypt_password(_req['newPass'])
+        print(_encrpass)
+        cur.execute("update user set password = %s where email = %s", (_encrpass,userid))
+        conn.commit()
+        response = jsonify("success")
+        return response
+    except Exception as e:
+        print(e)
+        response = jsonify('Server Er7ror')
+        response.status_code = 500
+        return response
+
+@app.route('/getPh',methods = ['GET'])
+def getphone():
+    userid = request.args.get('userid')
+    try:
+        conn = mysql.connect();
+        cur = conn.cursor(pymysql.cursors.DictCursor)
+        cur.execute("select phone from user where email = %s;",(userid))
+        rows = cur.fetchall()
+        conn.commit()
+        response = jsonify(rows)
+        return response
+    except Exception as e:
+        print(e)
+        response = jsonify('Server Er7ror')
+        response.status_code = 500
+        return response
+
 if __name__ == "__main__" :
-    app.run()
+    app.run(debug=True)
 
