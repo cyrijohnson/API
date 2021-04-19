@@ -1,17 +1,14 @@
 import pymysql
 import random as random
 import string
-import serviceRegistration
-import dataProvider
-import demo
-import apiAuth as apiAuth
+from utils import apiAuth as apiAuth
 import security as auth
 from app import app
 from utils.DbConfig import mysql
 from utils.searchImpl import getKeywords
 from flask import jsonify
-from flask import flash,request
-from werkzeug.security import generate_password_hash, check_password_hash
+from flask import request
+
 
 @app.route('/user', methods = ['GET'])
 def user():
@@ -247,7 +244,7 @@ def getApCompanies():
                 conn = mysql.connect();
                 cur = conn.cursor(pymysql.cursors.DictCursor)
                 _req = request.json
-                cur.execute("select * from services where verified=0;")
+                cur.execute("select idservices, name, building, street, landmark, area, pincode, state, country, companyid, serviceUserFK from services where verified=0;")
                 conn.commit()
                 response = jsonify(cur.fetchall())
                 response.status_code = 200
@@ -271,16 +268,18 @@ def getServiceInfo():
     userid = request.args.get('userid')
     token = request.args.get('tok')
     sid = request.args.get('sid')
+    response = {}
     try:
         if apiAuth.apiAuth(token, userid) == True:
             if request.args.get('role') == "AP":
                 conn = mysql.connect();
                 cur = conn.cursor(pymysql.cursors.DictCursor)
-                cur.execute("select * from services where idservices=%s;",(sid))
+                cur.execute("select idservices, services.name, building, street, landmark, area, pincode, state, country, contactid, serviceUserFK, scheduleid, paymentid, keywordsid, companyId from services where idservices=%s;",(sid))
                 rows = cur.fetchall()
-                cur.execute("select * from companydetails where idcompany=%s",(rows[0]["companyId"]))
-                rowsDat = cur.fetchall()
-                response = {"company": rowsDat}
+                if rows[0]["companyId"]!=0:
+                    cur.execute("select * from companydetails where idcompany=%s",(rows[0]["companyid"]))
+                    rowsDat = cur.fetchall()
+                    response = {"company": rowsDat}
                 cur.execute("select * from servicecontactinfo where idserviceContactInfo=%s",(rows[0]["contactid"]))
                 rowsDat = cur.fetchall()
                 response["contactInfo"] = rowsDat
@@ -310,6 +309,7 @@ def getServiceInfo():
             return response
     except Exception as e:
         print(e)
+        print("hellooo")
         response = jsonify('Server Error')
         response.status_code = 500
         return response
@@ -323,17 +323,20 @@ def findService():
         tokens = getKeywords(text)
         resultServices = []
         serviceData = []
+        print(tokens)
         conn = mysql.connect();
         cur = conn.cursor(pymysql.cursors.DictCursor)
         for i in tokens:
             cur.execute("select servicekeywordsfk from keywords where keywordstext like '%" + i + "%'")
             temp = cur.fetchall()
             for i in temp:
+                print(i["servicekeywordsfk"])
                 resultServices.append(i["servicekeywordsfk"])
         resultServices = list(set(resultServices))
         for i in resultServices:
-            cur.execute("SELECT * FROM nilgiriconnect.services join nilgiriconnect.servicecontactinfo on nilgiriconnect.services.idservices = nilgiriconnect.servicecontactinfo.servicecontackfk join nilgiriconnect.scheduletable on nilgiriconnect.scheduletable.serviceId = nilgiriconnect.services.idservices  where nilgiriconnect.services.idservices = %s",(i))
+            cur.execute("SELECT idservices, services.name, building, street, landmark, area, pincode, state, country, companyid, serviceUserFK FROM services join servicecontactinfo on services.idservices = servicecontactinfo.servicecontackfk join scheduletable on scheduletable.serviceId = services.idservices  where services.idservices = %s",(i))
             serviceData.append(cur.fetchall()[0])
+        print(serviceData)
         response = jsonify(serviceData)
         return response
     except Exception as e:

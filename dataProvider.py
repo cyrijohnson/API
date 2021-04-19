@@ -2,18 +2,14 @@ import base64
 import io
 
 import pymysql
-import sys
-from random import randint
-import string
 
 from PIL import Image
 
-import security as auth
-import apiAuth as apiAuth
+from utils import apiAuth as apiAuth
 from app import app
 from utils.DbConfig import mysql
-from flask import jsonify, send_file
-from flask import flash,request
+from flask import jsonify
+from flask import request
 
 @app.route('/getMyCompaniesServices', methods = ['GET'])
 def getCompanyServices():

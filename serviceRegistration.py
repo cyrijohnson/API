@@ -263,6 +263,7 @@ def imageFunction():
     cur = conn.cursor(pymysql.cursors.DictCursor)
     _req = request.files['myFile'].read()
     print(_req)
+    print(sid)
     cur.execute("update services set image = %s where idservices = %s",(_req,sid));
     conn.commit()
     response = jsonify("success")

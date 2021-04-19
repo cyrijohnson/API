@@ -2,8 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="eabbde17-9746-4a4c-ac93-8e9c84d9733a" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/reviewController.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apiAuth.py" beforeDir="false" afterPath="$PROJECT_DIR$/utils/apiAuth.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dataProvider.py" beforeDir="false" afterPath="$PROJECT_DIR$/dataProvider.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/reviewController.py" beforeDir="false" afterPath="$PROJECT_DIR$/reviewController.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/serviceRegistration.py" beforeDir="false" afterPath="$PROJECT_DIR$/serviceRegistration.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/user.py" beforeDir="false" afterPath="$PROJECT_DIR$/user.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -30,6 +34,11 @@
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="restartRequiresConfirmation" value="false" />
     <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\I517463\Desktop\NilgiriConnect\API\utils" />
+    </key>
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -164,8 +173,20 @@
       <workItem from="1607000006179" duration="3004000" />
       <workItem from="1608839093905" duration="724000" />
       <workItem from="1609858173172" duration="1134000" />
-      <workItem from="1609941264408" duration="2074000" />
+      <workItem from="1609941264408" duration="2169000" />
+      <workItem from="1610463402550" duration="7653000" />
+      <workItem from="1611642709632" duration="199000" />
+      <workItem from="1614420696951" duration="1214000" />
+      <workItem from="1618679169064" duration="2267000" />
     </task>
+    <task id="LOCAL-00001" summary="api endpoints initiation for review controller">
+      <created>1609943395862</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1609943395862</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -184,10 +205,14 @@
       </map>
     </option>
   </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="api endpoints initiation for review controller" />
+    <option name="LAST_COMMIT_MESSAGE" value="api endpoints initiation for review controller" />
+  </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/API$searchImpl.coverage" NAME="searchImpl Coverage Results" MODIFIED="1605786674132" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/utils" />
     <SUITE FILE_PATH="coverage/API$dataProvider.coverage" NAME="dataProvider Coverage Results" MODIFIED="1605943460180" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/API$user.coverage" NAME="user Coverage Results" MODIFIED="1609942316052" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/API$serviceRegistration.coverage" NAME="serviceRegistration Coverage Results" MODIFIED="1605976187573" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/API$user.coverage" NAME="user Coverage Results" MODIFIED="1610473861817" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/API$serviceRegistration.coverage" NAME="serviceRegistration Coverage Results" MODIFIED="1610468985679" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>
